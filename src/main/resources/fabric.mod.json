@@ -1,38 +1,36 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "fdjei",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Farmer's Delight JEI plugin",
+  "description": "This mod adds JEI support to the Fabric version of Farmer's Delight",
   "authors": [
-    "Me!"
+    "Anxxitty"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://github.com/Anxxitty",
+    "sources": "https://github.com/Anxxitty/farmers-delight-JEI-plugin"
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/fdjei/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "io.github.anxxitty.fdjei.FDJEI"
+    ],
+    "jei_mod_plugin": [
+      "io.github.anxxitty.fdjei.jei.JEIPlugin"
     ]
   },
-  "mixins": [
-    "modid.mixins.json"
-  ],
 
   "depends": {
     "fabricloader": ">=0.14.6",
     "fabric": "*",
     "minecraft": "~1.18.2",
-    "java": ">=17"
-  },
-  "suggests": {
-    "another-mod": "*"
+    "java": ">=17",
+    "farmersdelight": "*"
   }
 }
