@@ -1,4 +1,4 @@
-# Farmer's Delight JEI Plugin
+# Just Enough Farmer's Recipes
 
 ## Setup
 
