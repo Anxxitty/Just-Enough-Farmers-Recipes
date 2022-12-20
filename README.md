@@ -1,9 +1,9 @@
-# Fabric Example Mod
+# Farmer's Delight JEI Plugin
 
 ## Setup
 
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
+Download the jar file from the release tab in github, put it in your mods folder, alongside [Farmer's Delight](https://www.curseforge.com/minecraft/mc-mods/farmers-delight-fabric) and [JEI](https://www.curseforge.com/minecraft/mc-mods/jei).
 
 ## License
 
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+This mod is under MIT license.
