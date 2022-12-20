@@ -3,14 +3,14 @@
   "id": "fdjei",
   "version": "${version}",
 
-  "name": "Farmer's Delight JEI plugin",
+  "name": "Just Enough Farmer's Recipes",
   "description": "This mod adds JEI support to the Fabric version of Farmer's Delight",
   "authors": [
     "Anxxitty"
   ],
   "contact": {
     "homepage": "https://github.com/Anxxitty",
-    "sources": "https://github.com/Anxxitty/farmers-delight-JEI-plugin"
+    "sources": "https://github.com/Anxxitty/Just-Enough-Farmers-Recipes"
   },
 
   "license": "CC0-1.0",
