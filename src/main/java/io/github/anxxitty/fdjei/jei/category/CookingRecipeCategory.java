@@ -1,13 +1,13 @@
 package io.github.anxxitty.fdjei.jei.category;
 
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
-import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.util.math.MatrixStack;
@@ -24,9 +24,7 @@ import com.nhoryzon.mc.farmersdelight.registry.ItemsRegistry;
 import io.github.anxxitty.fdjei.jei.FDRecipeTypes;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static io.github.anxxitty.fdjei.jei.JEIPlugin.getTranslation;
 
@@ -34,7 +32,6 @@ import static io.github.anxxitty.fdjei.jei.JEIPlugin.getTranslation;
 @MethodsReturnNonnullByDefault
 public class CookingRecipeCategory implements IRecipeCategory<CookingPotRecipe>
 {
-    public static final Identifier UID = new Identifier(FarmersDelightMod.MOD_ID, "cooking");
     protected final IDrawable heatIndicator;
     protected final IDrawableAnimated arrow;
     private final Text title;
@@ -49,16 +46,6 @@ public class CookingRecipeCategory implements IRecipeCategory<CookingPotRecipe>
         heatIndicator = helper.createDrawable(backgroundImage, 176, 0, 17, 15);
         arrow = helper.drawableBuilder(backgroundImage, 176, 15, 24, 17)
                 .buildAnimated(200, IDrawableAnimated.StartDirection.LEFT, false);
-    }
-
-    @Override
-    public Identifier getUid() {
-        return this.getRecipeType().getUid();
-    }
-
-    @Override
-    public Class<? extends CookingPotRecipe> getRecipeClass() {
-        return this.getRecipeType().getRecipeClass();
     }
 
     @Override
@@ -82,43 +69,29 @@ public class CookingRecipeCategory implements IRecipeCategory<CookingPotRecipe>
     }
 
     @Override
-    public void setIngredients(CookingPotRecipe cookingPotRecipe, IIngredients ingredients) {
-        List<Ingredient> inputAndContainer = new ArrayList<>(cookingPotRecipe.getIngredients());
-        inputAndContainer.add(Ingredient.ofStacks(cookingPotRecipe.getContainer()));
-
-        ingredients.setInputIngredients(inputAndContainer);
-        ingredients.setOutput(VanillaTypes.ITEM_STACK, cookingPotRecipe.getOutput());
-    }
-
-    @Override
-    public void setRecipe(IRecipeLayout recipeLayout, CookingPotRecipe recipe, IIngredients ingredients) {
-        final int MEAL_DISPLAY = 6;
-        final int CONTAINER_INPUT = 7;
-        final int OUTPUT = 8;
-        IGuiItemStackGroup itemStacks = recipeLayout.getItemStacks();
+    public void setRecipe(IRecipeLayoutBuilder builder, CookingPotRecipe recipe, IFocusGroup focusGroup) {
         DefaultedList<Ingredient> recipeIngredients = recipe.getIngredients();
+        ItemStack resultStack = recipe.getOutput();
+        ItemStack containerStack = recipe.getContainer();
 
         int borderSlotSize = 18;
         for (int row = 0; row < 2; ++row) {
             for (int column = 0; column < 3; ++column) {
                 int inputIndex = row * 3 + column;
                 if (inputIndex < recipeIngredients.size()) {
-                    itemStacks.init(inputIndex, true, column * borderSlotSize, row * borderSlotSize);
-                    itemStacks.set(inputIndex, Arrays.asList(recipeIngredients.get(inputIndex).getMatchingStacks()));
+                    builder.addSlot(RecipeIngredientRole.INPUT, (column * borderSlotSize) + 1, (row * borderSlotSize) + 1)
+                            .addItemStacks(Arrays.asList(recipeIngredients.get(inputIndex).getMatchingStacks()));
                 }
             }
         }
 
-        itemStacks.init(MEAL_DISPLAY, false, 94, 9);
-        itemStacks.set(MEAL_DISPLAY, recipe.getOutput());
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 95, 10).addItemStack(resultStack);
 
-        if (!recipe.getContainer().isEmpty()) {
-            itemStacks.init(CONTAINER_INPUT, false, 62, 38);
-            itemStacks.set(CONTAINER_INPUT, recipe.getContainer());
+        if (!containerStack.isEmpty()) {
+            builder.addSlot(RecipeIngredientRole.OUTPUT, 63, 39).addItemStack(containerStack);
         }
 
-        itemStacks.init(OUTPUT, false, 94, 38);
-        itemStacks.set(OUTPUT, recipe.getOutput());
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 95, 39).addItemStack(resultStack);
     }
 
     @Override

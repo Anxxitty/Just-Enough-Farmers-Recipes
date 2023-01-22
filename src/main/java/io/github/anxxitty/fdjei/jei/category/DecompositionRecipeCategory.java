@@ -15,7 +15,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.annotation.MethodsReturnNonnullByDefault;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.MutableText;
 import net.minecraft.item.ItemStack;
 import com.nhoryzon.mc.farmersdelight.FarmersDelightMod;
 import com.nhoryzon.mc.farmersdelight.registry.BlocksRegistry;
@@ -39,7 +39,6 @@ import static io.github.anxxitty.fdjei.jei.JEIPlugin.getTranslation;
 @MethodsReturnNonnullByDefault
 public class DecompositionRecipeCategory implements IRecipeCategory<DecompositionDummy>
 {
-    public static final Identifier UID = new Identifier(FarmersDelightMod.MOD_ID, "decomposition");
     private static final int slotSize = 22;
 
     private final Text title;
@@ -57,16 +56,6 @@ public class DecompositionRecipeCategory implements IRecipeCategory<Decompositio
         richSoil = new ItemStack(ItemsRegistry.RICH_SOIL.get());
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, richSoil);
         slotIcon = helper.createDrawable(backgroundImage, 119, 0, slotSize, slotSize);
-    }
-
-    @Override
-    public Identifier getUid() {
-        return this.getRecipeType().getUid();
-    }
-
-    @Override
-    public Class<? extends DecompositionDummy> getRecipeClass() {
-        return this.getRecipeType().getRecipeClass();
     }
 
     @Override
@@ -128,7 +117,7 @@ public class DecompositionRecipeCategory implements IRecipeCategory<Decompositio
         return iconX <= mouseX && mouseX < iconX + icon_size && iconY <= mouseY && mouseY < iconY + icon_size;
     }
 
-    private static TranslatableText translateKey(@Nonnull String suffix) {
-        return new TranslatableText(FarmersDelightMod.MOD_ID + ".rei.decomposition" + suffix);
+    private static MutableText translateKey(@Nonnull String suffix) {
+        return Text.translatable(FarmersDelightMod.MOD_ID + ".rei.decomposition" + suffix);
     }
 }
