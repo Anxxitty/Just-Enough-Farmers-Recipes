@@ -1,7 +1,6 @@
 package io.github.anxxitty.fdjei.jei.category;
 
 import com.google.common.collect.ImmutableList;
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -11,7 +10,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.block.Block;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.annotation.MethodsReturnNonnullByDefault;
 import net.minecraft.text.Text;
@@ -24,8 +23,8 @@ import com.nhoryzon.mc.farmersdelight.registry.TagsRegistry;
 
 import io.github.anxxitty.fdjei.jei.FDRecipeTypes;
 import io.github.anxxitty.fdjei.jei.resources.DecompositionDummy;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryEntryList;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.entry.RegistryEntryList;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -54,7 +53,7 @@ public class DecompositionRecipeCategory implements IRecipeCategory<Decompositio
         background = helper.createDrawable(backgroundImage, 0, 0, 118, 80);
         organicCompost = new ItemStack(BlocksRegistry.ORGANIC_COMPOST.get());
         richSoil = new ItemStack(ItemsRegistry.RICH_SOIL.get());
-        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, richSoil);
+        icon = helper.createDrawableItemStack(richSoil);
         slotIcon = helper.createDrawable(backgroundImage, 119, 0, slotSize, slotSize);
     }
 
@@ -80,7 +79,7 @@ public class DecompositionRecipeCategory implements IRecipeCategory<Decompositio
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder recipeLayout, DecompositionDummy decompositionRecipe, IFocusGroup iIngredients) {
-        List<RegistryEntryList.Named<Block>> acceleratorsEntryList = Registry.BLOCK.getEntryList(TagsRegistry.COMPOST_ACTIVATORS).stream().toList();
+        List<RegistryEntryList.Named<Block>> acceleratorsEntryList = Registries.BLOCK.getEntryList(TagsRegistry.COMPOST_ACTIVATORS).stream().toList();
         List<ItemStack> accelerators = new ArrayList<>();
 
         for (RegistryEntryList.Named<Block> NamedBlock: acceleratorsEntryList) {
@@ -94,7 +93,7 @@ public class DecompositionRecipeCategory implements IRecipeCategory<Decompositio
     }
 
     @Override
-    public void draw(DecompositionDummy recipe, IRecipeSlotsView recipeSlotsView, MatrixStack ms, double mouseX, double mouseY) {
+    public void draw(DecompositionDummy recipe, IRecipeSlotsView recipeSlotsView, DrawContext ms, double mouseX, double mouseY) {
         this.slotIcon.draw(ms, 63, 53);
     }
 

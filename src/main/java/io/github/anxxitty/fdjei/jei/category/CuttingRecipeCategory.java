@@ -1,6 +1,5 @@
 package io.github.anxxitty.fdjei.jei.category;
 
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -9,7 +8,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.annotation.MethodsReturnNonnullByDefault;
@@ -44,7 +43,7 @@ public class CuttingRecipeCategory implements IRecipeCategory<CuttingBoardRecipe
         slot = helper.createDrawable(backgroundImage, 0, 58, 18, 18);
         slotChance = helper.createDrawable(backgroundImage, 18, 58, 18, 18);
         background = helper.createDrawable(backgroundImage, 0, 0, 117, 57);
-        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ItemsRegistry.CUTTING_BOARD.get()));
+        icon = helper.createDrawableItemStack(new ItemStack(ItemsRegistry.CUTTING_BOARD.get()));
     }
 
     @Override
@@ -96,7 +95,7 @@ public class CuttingRecipeCategory implements IRecipeCategory<CuttingBoardRecipe
     }
 
     @Override
-    public void draw(CuttingBoardRecipe recipe, IRecipeSlotsView recipeSlotsView, MatrixStack matrixStack, double mouseX, double mouseY) {
+    public void draw(CuttingBoardRecipe recipe, IRecipeSlotsView recipeSlotsView, DrawContext matrixStack, double mouseX, double mouseY) {
         //cuttingBoard.draw(matrixStack, 15, 19);
         DefaultedList<ChanceResult> recipeOutputs = recipe.getRollableResults();
 

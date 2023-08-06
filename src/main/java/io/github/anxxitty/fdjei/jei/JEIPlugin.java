@@ -13,7 +13,6 @@ import io.github.anxxitty.fdjei.jei.resources.DecompositionDummy;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.registration.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
@@ -44,14 +43,14 @@ public class JEIPlugin implements IModPlugin {
         registration.addRecipes(FDRecipeTypes.COOKING, modRecipes.getCookingPotRecipes());
         registration.addRecipes(FDRecipeTypes.CUTTING, modRecipes.getCuttingBoardRecipes());
         registration.addRecipes(FDRecipeTypes.DECOMPOSITION, ImmutableList.of(new DecompositionDummy()));
-        registration.addIngredientInfo(new ItemStack(ItemsRegistry.STRAW.get()), VanillaTypes.ITEM_STACK, getTranslation("rei.info.straw"));
-        registration.addIngredientInfo(new ItemStack(ItemsRegistry.HAM.get()), VanillaTypes.ITEM_STACK, getTranslation("rei.info.ham"));
-        registration.addIngredientInfo(new ItemStack(ItemsRegistry.SMOKED_HAM.get()), VanillaTypes.ITEM_STACK, getTranslation("rei.info.ham"));
-        registration.addIngredientInfo(new ItemStack(ItemsRegistry.FLINT_KNIFE.get()), VanillaTypes.ITEM_STACK, getTranslation("rei.info.knife"));
-        registration.addIngredientInfo(new ItemStack(ItemsRegistry.IRON_KNIFE.get()), VanillaTypes.ITEM_STACK, getTranslation("rei.info.knife"));
-        registration.addIngredientInfo(new ItemStack(ItemsRegistry.DIAMOND_KNIFE.get()), VanillaTypes.ITEM_STACK, getTranslation("rei.info.knife"));
-        registration.addIngredientInfo(new ItemStack(ItemsRegistry.NETHERITE_KNIFE.get()), VanillaTypes.ITEM_STACK, getTranslation("rei.info.knife"));
-        registration.addIngredientInfo(new ItemStack(ItemsRegistry.GOLDEN_KNIFE.get()), VanillaTypes.ITEM_STACK, getTranslation("rei.info.knife"));
+        registration.addItemStackInfo(new ItemStack(ItemsRegistry.STRAW.get()), getTranslation("rei.info.straw"));
+        registration.addItemStackInfo(new ItemStack(ItemsRegistry.HAM.get()), getTranslation("rei.info.ham"));
+        registration.addItemStackInfo(new ItemStack(ItemsRegistry.SMOKED_HAM.get()), getTranslation("rei.info.ham"));
+        registration.addItemStackInfo(new ItemStack(ItemsRegistry.FLINT_KNIFE.get()), getTranslation("rei.info.knife"));
+        registration.addItemStackInfo(new ItemStack(ItemsRegistry.IRON_KNIFE.get()), getTranslation("rei.info.knife"));
+        registration.addItemStackInfo(new ItemStack(ItemsRegistry.DIAMOND_KNIFE.get()), getTranslation("rei.info.knife"));
+        registration.addItemStackInfo(new ItemStack(ItemsRegistry.NETHERITE_KNIFE.get()), getTranslation("rei.info.knife"));
+        registration.addItemStackInfo(new ItemStack(ItemsRegistry.GOLDEN_KNIFE.get()), getTranslation("rei.info.knife"));
 
     }
 

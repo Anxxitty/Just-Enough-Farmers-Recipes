@@ -1,6 +1,5 @@
 package io.github.anxxitty.fdjei.jei.category;
 
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
@@ -10,8 +9,9 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.annotation.MethodsReturnNonnullByDefault;
 import net.minecraft.text.Text;
@@ -42,7 +42,7 @@ public class CookingRecipeCategory implements IRecipeCategory<CookingPotRecipe>
         title = getTranslation("rei.cooking");
         Identifier backgroundImage = new Identifier(FarmersDelightMod.MOD_ID, "textures/gui/cooking_pot.png");
         background = helper.createDrawable(backgroundImage, 29, 16, 117, 57);
-        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ItemsRegistry.COOKING_POT.get()));
+        icon = helper.createDrawableItemStack(new ItemStack(ItemsRegistry.COOKING_POT.get()));
         heatIndicator = helper.createDrawable(backgroundImage, 176, 0, 17, 15);
         arrow = helper.drawableBuilder(backgroundImage, 176, 15, 24, 17)
                 .buildAnimated(200, IDrawableAnimated.StartDirection.LEFT, false);
@@ -71,7 +71,7 @@ public class CookingRecipeCategory implements IRecipeCategory<CookingPotRecipe>
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, CookingPotRecipe recipe, IFocusGroup focusGroup) {
         DefaultedList<Ingredient> recipeIngredients = recipe.getIngredients();
-        ItemStack resultStack = recipe.getOutput();
+        ItemStack resultStack = recipe.getOutput(DynamicRegistryManager.EMPTY);
         ItemStack containerStack = recipe.getContainer();
 
         int borderSlotSize = 18;
@@ -95,7 +95,7 @@ public class CookingRecipeCategory implements IRecipeCategory<CookingPotRecipe>
     }
 
     @Override
-    public void draw(CookingPotRecipe recipe, IRecipeSlotsView recipeSlotsView, MatrixStack matrixStack, double mouseX, double mouseY) {
+    public void draw(CookingPotRecipe recipe, IRecipeSlotsView recipeSlotsView, DrawContext matrixStack, double mouseX, double mouseY) {
         arrow.draw(matrixStack, 60, 9);
         heatIndicator.draw(matrixStack, 18, 39);
     }
